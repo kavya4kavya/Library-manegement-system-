@@ -206,4 +206,69 @@ int main() {
 
     return 0;
 }
+vector<User> userList;
+
+// Save users to file
+void saveUsersToFile() {
+    ofstream fout("users.txt");
+    for (const auto& user : userList) {
+        fout << user.userID << "," << user.name << "," << user.role << endl;
+    }
+    fout.close();
+}
+
+// Load users from file
+void loadUsersFromFile() {
+    userList.clear();
+    ifstream fin("users.txt");
+    string line;
+    while (getline(fin, line)) {
+        int id;
+        string name, role;
+
+        size_t pos = 0;
+        vector<string> tokens;
+        while ((pos = line.find(',')) != string::npos) {
+            tokens.push_back(line.substr(0, pos));
+            line.erase(0, pos + 1);
+        }
+        tokens.push_back(line);
+
+        if (tokens.size() == 3) {
+            id = stoi(tokens[0]);
+            name = tokens[1];
+            role = tokens[2];
+            userList.emplace_back(id, name, role);
+        }
+    }
+    fin.close();
+}
+
+// Add a new user
+void addUser() {
+    int id;
+    string name, role;
+
+    cout << "Enter User ID: ";
+    cin >> id;
+    cin.ignore();
+    cout << "Enter Name: ";
+    getline(cin, name);
+    cout << "Enter Role (student/teacher): ";
+    getline(cin, role);
+
+    userList.emplace_back(id, name, role);
+    cout << "User added successfully!\n";
+    saveUsersToFile();
+}
+
+// Display all users
+void displayAllUsers() {
+    cout << "\nRegistered Users:\n";
+    cout << "ID   | Name                 | Role     \n";
+    cout << "----------------------------------------\n";
+    for (const auto& user : userList) {
+        user.display();
+    }
+}
 
