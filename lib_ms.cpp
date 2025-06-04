@@ -272,3 +272,24 @@ void displayAllUsers() {
     }
 }
 
+void userManagementMenu() {
+    int choice;
+    loadUsersFromFile();
+    do {
+        cout << "\n--- User Management Menu ---\n";
+        cout << "1. Add New User\n";
+        cout << "2. Display All Users\n";
+        cout << "0. Back to Main Menu\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addUser(); break;
+            case 2: displayAllUsers(); break;
+            case 0: break;
+            default: cout << "Invalid choice!\n";
+        }
+    } while (choice != 0);
+}
+
+
