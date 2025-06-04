@@ -166,3 +166,44 @@ void searchBookByTitle() {
         cout << "No books found with title containing \"" << query << "\".\n";
 }
 
+void bookInventoryMenu() {
+    int choice;
+    loadBooksFromFile();
+    do {
+        cout << "\n--- Book Inventory Menu ---\n";
+        cout << "1. Add New Book\n";
+        cout << "2. Display All Books\n";
+        cout << "3. Search Book by Title\n";
+        cout << "0. Back to Main Menu\n";
+        cout << "Enter choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addBook(); break;
+            case 2: displayAllBooks(); break;
+            case 3: searchBookByTitle(); break;
+            case 0: break;
+            default: cout << "Invalid choice!\n";
+        }
+    } while (choice != 0);
+}
+
+int main() {
+    int mainChoice;
+    do {
+        cout << "\n=== Smart Library Management System ===\n";
+        cout << "1. Book Inventory\n";
+        cout << "0. Exit\n";
+        cout << "Enter choice: ";
+        cin >> mainChoice;
+
+        switch (mainChoice) {
+            case 1: bookInventoryMenu(); break;
+            case 0: cout << "Goodbye!\n"; break;
+            default: cout << "Invalid choice!\n";
+        }
+    } while (mainChoice != 0);
+
+    return 0;
+}
+
